@@ -1,0 +1,26 @@
+{
+  "name": "validatefn",
+  "version": "0.0.1",
+  "description": "micro validation lib.",
+  "main": "index.js",
+  "scripts": {
+    "test": "make tests"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/diasbruno/validatefn.git"
+  },
+  "keywords": [
+    "valitation"
+  ],
+  "author": "Bruno Dias",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/diasbruno/validatefn/issues"
+  },
+  "homepage": "https://github.com/diasbruno/validatefn#readme",
+  "devDependencies": {
+    "mocha": "^6.2.0",
+    "should": "^13.2.3"
+  }
+}
