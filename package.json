@@ -1,0 +1,35 @@
+{
+  "name": "check-fns",
+  "version": "0.0.0",
+  "description": "composable validation functions.",
+  "main": "index.js",
+  "scripts": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/diasbruno/check-fns.git"
+  },
+  "keywords": [
+    "valitation"
+  ],
+  "author": "Bruno Dias",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/diasbruno/check-fns/issues"
+  },
+  "homepage": "https://github.com/diasbruno/check-fns#readme",
+  "devDependencies": {
+    "@babel/cli": "^7.5.5",
+    "@babel/core": "^7.5.5",
+    "@babel/preset-env": "^7.5.5",
+    "mocha": "^6.2.0",
+    "nyc": "^14.1.1",
+    "should": "^13.2.3"
+  },
+  "nyc": {
+    "reporter": ["lcov", "text", "html"],
+    "include": [
+      "src/index.js"
+    ],
+    "exclude": ["index.js", "tests.js"]
+  }
+}
