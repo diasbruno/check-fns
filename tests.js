@@ -2,10 +2,13 @@ require('should');
 
 const {
     tester,
+    keepFirst,
+    listMessages,
     object,
     all,
     or,
-    validate
+    validate,
+    V
 } = require('./index');
 
 const min = a => tester((b) => b > a, 'min');
@@ -20,13 +23,13 @@ const lessThan2 = b => b < 2;
 describe("validatefn", () => {
     context("tester", () => {
         it("should validate.", () =>
-           tester(isOne, 'is one')(1).should.be.eql({
+           tester(isOne, 'is one')(null, '', 1).should.be.eql({
                msg: '',
                result: true
            }));
 
         it("should fail to validate.", () =>
-           tester(notOne, 'not one')(1).should.be.eql({
+           tester(notOne, 'not one')(null, '', 1).should.be.eql({
                msg: 'not one',
                result: false
            }));
@@ -36,21 +39,30 @@ describe("validatefn", () => {
         context("all(...)", () => {
             it("should pass.", () =>
                all(tester(isOne, 'is one'),
-                   tester(lessThan2, 'less than 2'))(1).should.be.eql({
+                   tester(lessThan2, 'less than 2')
+                  )(
+                   keepFirst, '', 1
+               ).should.be.eql({
                        msg: '',
                        result: true
                    }));
 
             it("should fail first item.", () =>
                all(tester(notOne, 'not one'),
-                   tester(isOne, 'is one'))(1).should.be.eql({
+                   tester(isOne, 'is one')
+                  )(
+                   keepFirst, '', 1
+               ).should.be.eql({
                        msg: 'not one',
                        result: false
                    }));
 
             it("should fail last item.", () =>
                all(tester(isOne, 'is one'),
-                   tester(notOne, 'not one'))(1).should.be.eql({
+                   tester(notOne, 'not one')
+                  )(
+                   keepFirst, '', 1
+               ).should.be.eql({
                        msg: 'not one',
                        result: false
                    }));
@@ -59,21 +71,30 @@ describe("validatefn", () => {
         context("or", () => {
             it("should fail last, but pass.", () =>
                or(tester(isOne, 'is one'),
-                  tester(notOne, 'not one'))(1).should.be.eql({
+                  tester(notOne, 'not one')
+                 )(
+                   keepFirst, '', 1
+               ).should.be.eql({
                       msg: '',
                       result: true
                   }));
 
             it("should fail first, but pass.", () =>
                or(tester(notOne, 'not one'),
-                  tester(isOne, 'is one'))(1).should.be.eql({
+                  tester(isOne, 'is one')
+                 )(
+                   keepFirst, '', 1
+               ).should.be.eql({
                       msg: '',
                       result: true
                   }));
 
             it("should fail all.", () =>
                or(tester(notOne, 'not one'),
-                   tester(notOne, 'not one'))(1).should.be.eql({
+                  tester(notOne, 'not one')
+                 )(
+                   keepFirst, '', 1
+               ).should.be.eql({
                        msg: 'not one',
                        result: false
                    }));
@@ -84,13 +105,15 @@ describe("validatefn", () => {
         it("should pass.", () =>
            object({
                c: all(min(0), max(2))
-           })({ c: 1 }).should.be.eql({
+           })(keepFirst, '', { c: 1 }).should.be.eql({
                msg: '',
                result: true
            }));
 
         it("should fail.", () =>
-           object({ c: all(min(0), max(2)) })({ c: -1 }).should.be.eql({
+           object({
+               c: all(min(0), max(2))
+           })(keepFirst, '', { c: -1 }).should.be.eql({
                msg: 'min',
                result: false
            }));
@@ -103,6 +126,30 @@ describe("validatefn", () => {
                     c: all(min(1), max(10))
                 })
             )({ c: 5 }).should.be.eql(true)
+        });
+    });
+
+    context("V", () => {
+        it("should pass.", () => {
+            V(
+                all(min(1), max(10)),
+                listMessages,
+                []
+            )({ c: 5 }).should.be.eql({
+                msg: [],
+                result: true
+            })
+        });
+
+        it("should fail.", () => {
+            V(
+                all(min(1), max(10)),
+                listMessages,
+                []
+            )({ c: 0 }).should.be.eql({
+                msg: ['min'],
+                result: false
+            })
         });
     });
 });
