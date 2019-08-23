@@ -3,7 +3,7 @@ MOCHA=./node_modules/.bin/mocha
 OPTS=
 
 ifdef DEBUG
-	OPTS += --inspect-brk
+	OPTS += -w
 endif
 
 tests:

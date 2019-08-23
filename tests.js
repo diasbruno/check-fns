@@ -130,24 +130,48 @@ describe("validatefn", () => {
     });
 
     context("V", () => {
-        it("should pass.", () => {
+        it("should all pass.", () => {
             V(
                 all(min(1), max(10)),
                 listMessages,
                 []
-            )({ c: 5 }).should.be.eql({
+            )(5).should.be.eql({
                 msg: [],
                 result: true
             })
         });
 
-        it("should fail.", () => {
+        it("should all fail.", () => {
             V(
                 all(min(1), max(10)),
                 listMessages,
                 []
-            )({ c: 0 }).should.be.eql({
+            )(0).should.be.eql({
                 msg: ['min'],
+                result: false
+            })
+        });
+
+        it("should or pass.", () => {
+            V(
+                or(min(1), max(10)),
+                listMessages,
+                []
+            )(0).should.be.eql({
+                msg: [],
+                result: true
+            })
+        });
+
+
+        it("should or fail.", () => {
+            V(
+                or(tester(b => b.length > 0, 'non empty'),
+		   tester(b => b.constructor === String, 'not string')),
+                listMessages,
+                []
+            )([]).should.be.eql({
+                msg: ['non empty', 'not string'],
                 result: false
             })
         });
