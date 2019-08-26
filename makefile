@@ -1,6 +1,9 @@
-NYC=./node_modules/.bin/nyc
-MOCHA=./node_modules/.bin/mocha
-BABEL=./node_modules/.bin/babel
+NODE_BINS_PATH=./node_modules/.bin
+
+NYC=$(NODE_BINS_PATH)/nyc
+MOCHA=$(NODE_BINS_PATH)/mocha
+BABEL=$(NODE_BINS_PATH)/babel
+UGLIFYJS=$(NODE_BINS_PATH)/uglifyjs
 
 BRANCH=$(shell git rev-parse --abbrev-ref HEAD)
 CURRENT_VERSION:=$(shell jq ".version" package.json)
@@ -37,10 +40,16 @@ publish-on-npm:
 	npm publish
 
 update-package-version:
+	@echo "* Updating package version"
 	jq 'setpath(["version"]; "$(VERSION)")' < package.json > tmp.json
 	mv -f tmp.json package.json
 
-build: all tests
+compressing:
+	@echo "* Compressing"
+	(UGLIFYJS) < index.js > tmp.js
+	mv -f tmp.js index.js
+
+build: all tests compressing
 
 publishing: build update-package-version publish-version publish-on-npm
 
