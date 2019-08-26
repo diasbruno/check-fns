@@ -64,6 +64,6 @@ publish:
 	RELEASE=1 make -C . publishing
 
 tests:
-	$(NYC) mocha tests.js
+	$(NYC) --check-coverage --all mocha tests.js
 clean:
 	rm -rf index.js
