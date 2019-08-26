@@ -2,6 +2,10 @@
 
 micro data validation.
 
-# license
+## documentation
+
+check out the documentation at [wiki](https://github.com/diasbruno/check-fns/wiki).
+
+## license
 
 MIT (see license.md)
