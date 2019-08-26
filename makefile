@@ -36,15 +36,13 @@ publish-on-npm:
 	@echo "* Publishing on npm"
 	npm publish
 
-publish-finished: clean
-
 update-package-version:
 	jq 'setpath(["version"]; "$(VERSION)")' < package.json > tmp.json
 	mv -f tmp.json package.json
 
 build: all tests
 
-publishing: build update-package-version publish-version publish-on-npm publish-finished
+publishing: build update-package-version publish-version publish-on-npm
 
 publish:
 	RELEASE=1 make -C . publishing
