@@ -1,6 +1,6 @@
 {
   "name": "check-fns",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "composable validation functions.",
   "main": "index.js",
   "scripts": {},
@@ -26,10 +26,17 @@
     "should": "^13.2.3"
   },
   "nyc": {
-    "reporter": ["lcov", "text", "html"],
+    "reporter": [
+      "lcov",
+      "text",
+      "html"
+    ],
     "include": [
       "src/index.js"
     ],
-    "exclude": ["index.js", "tests.js"]
+    "exclude": [
+      "index.js",
+      "tests.js"
+    ]
   }
 }
