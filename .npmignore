@@ -7,3 +7,4 @@ src
 makefile
 dist/*
 .babelrc
+.travis.yml
