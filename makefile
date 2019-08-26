@@ -46,7 +46,7 @@ update-package-version:
 
 compressing:
 	@echo "* Compressing"
-	$(UGLIFYJS) < index.js > tmp.js
+	$(UGLIFYJS) --rename -m < index.js > tmp.js
 	mv -f tmp.js index.js
 
 standalone-version:
