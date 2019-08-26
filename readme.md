@@ -12,7 +12,7 @@ more examples will be available soon.
 
 ## download minified version
 
-[https://github.com/diasbruno/check-fns/blob/master/dist/check-fns.js](https://github.com/diasbruno/check-fns/blob/master/dist/check-fns.js)
+[https://github.com/diasbruno/check-fns/tree/master/dist/](https://github.com/diasbruno/check-fns/tree/master/dist/)
 
 ## license
 
