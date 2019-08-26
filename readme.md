@@ -12,4 +12,4 @@ more examples will be available soon.
 
 ## license
 
-MIT (see license.md)
+MIT License (see [license.md](https://github.com/diasbruno/check-fns/blob/master/license.md)).
