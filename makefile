@@ -51,6 +51,7 @@ compressing:
 
 standalone-version:
 	@echo "* Standalone version"
+	rm -rf dist/*
 	echo "/* check-fns $(VERSION) */" > tmp.js
 	$(UGLIFYJS) index.js --rename -m -ie8 >> tmp.js
 	mv -f tmp.js dist/check-fns-$(VERSION).js
