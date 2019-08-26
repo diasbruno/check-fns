@@ -6,3 +6,4 @@ tests.js
 src
 makefile
 dist/*
+.babelrc
