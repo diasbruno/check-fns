@@ -1,6 +1,6 @@
 {
   "name": "check-fns",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "composable validation functions.",
   "main": "index.js",
   "scripts": {},
