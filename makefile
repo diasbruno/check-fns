@@ -46,10 +46,14 @@ update-package-version:
 
 compressing:
 	@echo "* Compressing"
-	(UGLIFYJS) < index.js > tmp.js
+	$(UGLIFYJS) < index.js > tmp.js
 	mv -f tmp.js index.js
 
-build: all tests compressing
+standalone-version:
+	@echo "* Standalone version"
+	$(UGLIFYJS) index.js --rename -m -ie8 > dist/check-fns.js
+
+build: all tests standalone-version compressing
 
 publishing: build update-package-version publish-version publish-on-npm
 

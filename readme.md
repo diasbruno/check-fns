@@ -10,6 +10,10 @@ check out the documentation at [wiki](https://github.com/diasbruno/check-fns/wik
 
 more examples will be available soon.
 
+## download minified version
+
+[https://github.com/diasbruno/check-fns/blob/master/dist/check-fns.js](https://github.com/diasbruno/check-fns/blob/master/dist/check-fns.js)
+
 ## license
 
 MIT License (see [license.md](https://github.com/diasbruno/check-fns/blob/master/license.md)).
