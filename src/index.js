@@ -2,7 +2,7 @@ const
 // Convert arguments to array.
 args = a => {
   const len = a.length, ls = new Array(len);
-  for (let i = 0; i < len; i++) 
+  for (let i = 0; i < len; i++)
     ls[i] = a[i];
   return ls;
 },
@@ -17,11 +17,12 @@ collectAllErrors = (a, b) => {
     result: a.result && b.result
   };
 },
-// Given `f : Function` and `msg : string`
+// Given `f : Function` and
+// `msg : any` (for the failed result)
 // to build a test function.
 // It can be called with just `B : any`,
 // or, with `_ : Function` (the merge function)
-// and `smsg : String` (success message).
+// and `smsg : any` (success object).
 T = (f, msg) => (b, smsg, _) => {
   const r = f(b);
   return { msg: r ? smsg : msg, result: r };
@@ -74,7 +75,8 @@ ifFail = (f, msg) => (b, smsg, merge) => {
   return r.result ? r : { msg, result: false };
 },
 // Validate combinator.
-// Given `f : Function`, `m: Function` and `s : String`
+// Given `f : Function`, `m: Function`
+// and `s : any` (for the failed result)
 // build a validation function that receives `b : any`
 // and return the result.
 V = (f, s, m) => b => ((m = m || keepFirst), m(f(b, s, m), null)),
