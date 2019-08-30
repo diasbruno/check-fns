@@ -69,7 +69,7 @@ run-install:
 	npm install
 
 .PHONY: publishing
-publishing: clean update-package-version run-install build publish-version publish-on-npm
+publishing: update-package-version run-install build publish-version publish-on-npm
 
 .PHONY: publish
 publish:
