@@ -67,8 +67,12 @@ standalone-version:
 .PHONY: build
 build: all tests standalone-version compressing
 
+.PHONY: run-install
+run-install:
+	npm install
+
 .PHONY: publishing
-publishing: build update-package-version publish-version publish-on-npm
+publishing: run-install build update-package-version publish-version publish-on-npm
 
 .PHONY: publish
 publish:
