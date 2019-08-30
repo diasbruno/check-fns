@@ -8,10 +8,7 @@ UGLIFYJS=$(NODE_BINS_PATH)/uglifyjs
 BRANCH=$(shell git rev-parse --abbrev-ref HEAD)
 CURRENT_VERSION:=$(shell jq ".version" package.json)
 
-VERSION:=$(if $(RELEASE), \
-		$(shell read -p "Release $(CURRENT_VERSION) -> " \
-			V && echo $$V), \
-		$(subst /,-,$(BRANCH)))
+VERSION:=$(if $(RELEASE),$(shell read -p "Release $(CURRENT_VERSION) -> " V && echo $$V),$(subst /,-,$(BRANCH)))
 
 OPTS=
 
