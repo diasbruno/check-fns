@@ -118,6 +118,19 @@ describe("validatefn", () => {
           result: false
         })
       );
+
+      it(
+        "should fail all.",
+        () => or(
+          T(notOne, 'not one'),
+          T(notOne, 'not one')
+        )(
+          1, 'yay'
+        ).should.be.eql({
+          msg: 'not one',
+          result: false
+        })
+      );
     });
   });
 
@@ -222,7 +235,7 @@ describe("validatefn", () => {
         result: false
       })
     );
-  })
+  });
 
   context("validate", () => {
     it(
@@ -280,13 +293,32 @@ describe("validatefn", () => {
     it(
       "should or fail.",
       () => validateAll(
-        or(T(b => b.length > 0, 'non empty'),
-           T(b => b.constructor === String, 'not string')),
+        or(
+          T(b => b.length > 0, 'non empty'),
+          T(b => b.constructor === String, 'not string'),
+          T(b => b.constructor === Number, 'not number')
+        ),
         [],
         'yay'
       ).should.be.eql({
-        msg: ['non empty', 'not string'],
+        msg: ['non empty', 'not string', 'not number'],
         result: false
+      })
+    );
+
+    it(
+      "should all pass fail.",
+      () => validateAll(
+        or(
+          T(b => b.length > 0, 'non empty'),
+          T(b => b.constructor === Array, 'not string'),
+          T(b => b.constructor === Number, 'not number')
+        ),
+        [],
+        'yay'
+      ).should.be.eql({
+        msg: 'yay',
+        result: true
       })
     );
 
@@ -296,7 +328,8 @@ describe("validatefn", () => {
         () => should.throws(() => V(
           T(b => b.length > 0, 'non empty'),
           '',
-          (a) => {
+          (a, f, i, s, m) => {
+            console.log("what is a", a);
             if (!a.result) {
               throw new Error(x.msg);
             }
