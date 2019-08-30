@@ -16,8 +16,8 @@ ifdef DEBUG
 	OPTS += -w
 endif
 
-.PHONY: all
-all:
+.PHONY: index.js
+index.js:
 	$(BABEL) src -d .
 
 .PHONY: release-commit
@@ -62,7 +62,7 @@ standalone-version:
 	mv -f tmp dist/check-fns-$(VERSION).js
 
 .PHONY: build
-build: all tests standalone-version compressing
+build: index.js tests standalone-version compressing
 
 .PHONY: run-install
 run-install:
@@ -75,7 +75,10 @@ publishing: update-package-version run-install build publish-version publish-on-
 publish:
 	RELEASE=1 make -C . publishing
 
+.PHONY: tests
 tests:
 	$(NYC) --check-coverage --all mocha tests.js
+
+.PHONY: clean
 clean:
 	rm -rf index.js
