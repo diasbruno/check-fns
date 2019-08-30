@@ -8,9 +8,10 @@ UGLIFYJS=$(NODE_BINS_PATH)/uglifyjs
 BRANCH=$(shell git rev-parse --abbrev-ref HEAD)
 CURRENT_VERSION:=$(shell jq ".version" package.json)
 
-ifdef RELEASE
-VERSION:=$(shell read -p "Release $(CURRENT_VERSION) -> " VERSION && echo $$VERSION)
-endif
+VERSION:=$(if $(RELEASE), \
+		$(shell read -p "Release $(CURRENT_VERSION) -> " \
+			V && echo $$V), \
+		$(subst /,-,$(BRANCH)))
 
 OPTS=
 
@@ -46,22 +47,22 @@ publish-on-npm:
 .PHONY: update-package-version
 update-package-version:
 	@echo "* Updating package version"
-	jq 'setpath(["version"]; "$(VERSION)")' < package.json > tmp.json
-	mv -f tmp.json package.json
+	jq 'setpath(["version"]; "$(VERSION)")' < package.json > tmp
+	mv -f tmp package.json
 
 .PHONY: compressing
 compressing:
 	@echo "* Compressing"
-	$(UGLIFYJS) --rename -m < index.js > tmp.js
-	mv -f tmp.js index.js
+	$(UGLIFYJS) --rename -m < index.js > tmp
+	mv -f tmp index.js
 
 .PHONY: standalone-version
 standalone-version:
 	@echo "* Standalone version"
 	rm -rf dist/*
-	echo "/* check-fns $(VERSION) */" > tmp.js
-	$(UGLIFYJS) index.js --rename -m -ie8 >> tmp.js
-	mv -f tmp.js dist/check-fns-$(VERSION).js
+	echo "/* check-fns $(VERSION) */" > tmp
+	$(UGLIFYJS) index.js --rename -m -ie8 >> tmp
+	mv -f tmp dist/check-fns-$(VERSION).js
 
 .PHONY: build
 build: all tests standalone-version compressing
