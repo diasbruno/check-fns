@@ -13,7 +13,7 @@ keepFirst = {
 // Return the message of X to an Array.
 resultMsgToArray = x =>
   (x && !x.result ?
-   (x.msg.constructor != Array ? [x.msg] : x.msg) : []);
+   (x.msg.constructor != Array ? [x.msg] : x.msg) : []),
 // Given A and B, try to merge the results.
 collectAllErrors = {
   all: (a, f, i, s, m) => {
