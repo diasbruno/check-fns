@@ -18,14 +18,14 @@
   },
   "homepage": "https://github.com/diasbruno/check-fns#readme",
   "devDependencies": {
-    "@babel/cli": "^7.5.5",
-    "@babel/core": "^7.5.5",
-    "@babel/preset-env": "^7.5.5",
-    "coveralls": "^3.0.6",
-    "mocha": "^6.2.0",
+    "@babel/cli": "^7.16.0",
+    "@babel/core": "^7.16.0",
+    "@babel/preset-env": "^7.16.4",
+    "coveralls": "^3.1.1",
+    "mocha": "^6.2.3",
     "nyc": "^14.1.1",
     "should": "^13.2.3",
-    "uglify-js": "^3.6.0"
+    "uglify-js": "^3.14.3"
   },
   "nyc": {
     "reporter": [
